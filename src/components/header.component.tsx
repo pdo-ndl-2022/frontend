@@ -1,5 +1,13 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Avatar, Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  Link,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import { styled } from "@mui/material";
 import { Children, PropsWithChildren, useEffect, useState } from "react";
 import { Logo } from "./logo.component";
@@ -31,10 +39,20 @@ export const Header = () => {
     handleClose();
   };
 
+  const Nav = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  }));
+
   return (
     <StyledHeader>
-      <Logo />
-
+      <Nav>
+        <Logo />
+        <Link href="/learning" underline="none" color="primary">
+          Blog
+        </Link>
+      </Nav>
       <Box>
         {!isAuthenticated && (
           <Button onClick={() => loginWithRedirect()}>Login</Button>
