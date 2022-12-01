@@ -14,7 +14,11 @@ import {
 } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { PaletteMode } from "@mui/material";
-import { Auth0Provider, Auth0ProviderOptions } from "@auth0/auth0-react";
+import {
+  Auth0Provider,
+  Auth0ProviderOptions,
+  useAuth0,
+} from "@auth0/auth0-react";
 
 import { createContext, useEffect, useMemo, useState } from "react";
 
@@ -26,6 +30,7 @@ import { typography } from "../styles/theme/typography.config";
 import { getConfig } from "../utils/auth/config";
 import { useRouter } from "next/router";
 import { MainLayout } from "../layouts/main.layout";
+import { LoadingLayout } from "../layouts/loading.layout";
 
 const ColorModeContext = createContext({
   mode: "light",
@@ -33,6 +38,7 @@ const ColorModeContext = createContext({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const { isLoading } = useAuth0();
   const config = getConfig();
   const router = useRouter();
 
@@ -84,6 +90,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const theme = createTheme(themeOptions);
   theme.components = ComponentsOverrides(theme);
+
+  if (!isLoading) return <LoadingLayout />;
 
   return (
     <Auth0Provider {...providerConfig}>
