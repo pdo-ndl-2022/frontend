@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 export const PageSection = ({
   children,
   gap = true,
-}: PropsWithChildren<{ gap: boolean }>) => {
+}: PropsWithChildren<{ gap?: boolean }>) => {
   return (
     <Box
       component="section"
