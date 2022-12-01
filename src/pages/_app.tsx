@@ -10,7 +10,7 @@ import {
 } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { PaletteMode } from "@mui/material";
-// import AdapterDayJs from "@mui/lab/AdapterDayjs";
+import { Auth0Provider, Auth0ProviderOptions } from "@auth0/auth0-react";
 
 import { createContext, useEffect, useMemo, useState } from "react";
 
@@ -19,6 +19,8 @@ import { ComponentsOverrides } from "../styles/theme/overrides";
 import getPalette from "../styles/theme/palette.config";
 import { shape } from "../styles/theme/shapes";
 import { typography } from "../styles/theme/typography.config";
+import { getConfig } from "../utils/auth/config";
+import { useRouter } from "next/router";
 
 const ColorModeContext = createContext({
   mode: "light",
@@ -26,6 +28,24 @@ const ColorModeContext = createContext({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const config = getConfig();
+  const router = useRouter();
+
+  const onRedirectCallback = (appState: any) => {
+    router.push(
+      appState && appState.returnTo
+        ? appState.returnTo
+        : "http://localhost:3000/auth/callback"
+    );
+  };
+
+  const providerConfig: Auth0ProviderOptions = {
+    domain: config.domain,
+    clientId: config.clientId,
+    redirectUri: "http://localhost:3000/auth/callback",
+    onRedirectCallback,
+  };
+
   const [mode, setMode] = useState<PaletteMode>("light");
 
   useEffect(() => {
@@ -61,15 +81,17 @@ export default function App({ Component, pageProps }: AppProps) {
   theme.components = ComponentsOverrides(theme);
 
   return (
-    <ColorModeContext.Provider value={{ mode, ...colorMode }}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </StyledEngineProvider>
-      </LocalizationProvider>
-    </ColorModeContext.Provider>
+    <Auth0Provider {...providerConfig}>
+      <ColorModeContext.Provider value={{ mode, ...colorMode }}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </StyledEngineProvider>
+        </LocalizationProvider>
+      </ColorModeContext.Provider>
+    </Auth0Provider>
   );
 }
