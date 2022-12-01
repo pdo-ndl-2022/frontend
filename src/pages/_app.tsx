@@ -1,4 +1,8 @@
 import "../styles/globals.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 import type { AppProps } from "next/app";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -21,6 +25,7 @@ import { shape } from "../styles/theme/shapes";
 import { typography } from "../styles/theme/typography.config";
 import { getConfig } from "../utils/auth/config";
 import { useRouter } from "next/router";
+import { MainLayout } from "../layouts/main.layout";
 
 const ColorModeContext = createContext({
   mode: "light",
@@ -87,7 +92,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
               <CssBaseline />
-              <Component {...pageProps} />
+              <MainLayout>
+                <Component {...pageProps} />
+              </MainLayout>
             </ThemeProvider>
           </StyledEngineProvider>
         </LocalizationProvider>
