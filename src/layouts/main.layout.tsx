@@ -1,5 +1,6 @@
 import { styled } from "@mui/system";
 import { PropsWithChildren } from "react";
+import { CookiesBar } from "../components/cookiesBar/cookieBar.component";
 import { Footer } from "../components/footer.component";
 import { Header } from "../components/header.component";
 
@@ -13,6 +14,7 @@ export const MainLayout = ({ children }: PropsWithChildren<{}>) => {
       <Header />
       <StyledMain>{children}</StyledMain>
       <Footer />
+      <CookiesBar />
     </>
   );
 };
