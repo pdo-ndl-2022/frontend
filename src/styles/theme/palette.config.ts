@@ -80,7 +80,7 @@ const getPalette: (mode: PaletteMode) => PaletteOptions = (
   divider: mode === "light" ? GREY[200] : "#161c24",
   ...(mode === "light"
     ? {
-        background: { paper: "#ffffff", default: "#fafafa" },
+        background: { paper: "#ffffff", default: "#efefef" },
         text: { primary: GREY[900], secondary: GREY[700], disabled: GREY[500] },
       }
     : {

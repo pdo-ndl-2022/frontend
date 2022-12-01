@@ -4,6 +4,7 @@ specifiers:
   '@auth0/auth0-react': ^1.12.0
   '@emotion/react': ^11.10.5
   '@emotion/styled': ^11.10.5
+  '@mui/icons-material': ^5.10.16
   '@mui/lab': 5.0.0-alpha.110
   '@mui/material': ^5.10.16
   '@mui/system': ^5.10.16
@@ -20,12 +21,14 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   react-hook-form: ^7.40.0
+  swiper: ^8.4.5
   typescript: 4.9.3
 
 dependencies:
   '@auth0/auth0-react': 1.12.0_biqbaboplfbrettd7655fr4n2y
   '@emotion/react': 11.10.5_fan5qbzahqtxlm5dzefqlqx5ia
   '@emotion/styled': 11.10.5_otcjdfkheatawhug6fwk7ldzni
+  '@mui/icons-material': 5.10.16_ge2ne5gh5gcqikeclw577gsblu
   '@mui/lab': 5.0.0-alpha.110_xzzakmedsqtvy6xjds6ydbte5e
   '@mui/material': 5.10.16_thp4wrxo45nyllusrnt46mid4u
   '@mui/system': 5.10.16_v64nlmo6pkqfmpmxge6otzlg54
@@ -41,6 +44,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.40.0_react@18.2.0
+  swiper: 8.4.5
   typescript: 4.9.3
 
 devDependencies:
@@ -379,6 +383,23 @@ packages:
 
   /@mui/core-downloads-tracker/5.10.16:
     resolution: {integrity: sha512-eK9+olw2ZbXX+vGrtKnN01/vLP1aX0Lq0xok35bqWM1aB93Dcmky/xPNf8h31oJ/C+IzJBjZaZMEDzVZg4Qc0A==}
+    dev: false
+
+  /@mui/icons-material/5.10.16_ge2ne5gh5gcqikeclw577gsblu:
+    resolution: {integrity: sha512-jjCc0IF6iyLiucQCu5igg3fOscSqbbvRCmyRxXgzOcLR56B0sg2L8o+ZfJ0dAg59+wvgtXaxvjze/mJg0B4iWA==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@mui/material': ^5.0.0
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.20.6
+      '@mui/material': 5.10.16_thp4wrxo45nyllusrnt46mid4u
+      '@types/react': 18.0.25
+      react: 18.2.0
     dev: false
 
   /@mui/lab/5.0.0-alpha.110_xzzakmedsqtvy6xjds6ydbte5e:
@@ -1221,6 +1242,12 @@ packages:
     dependencies:
       '@babel/runtime': 7.20.6
       csstype: 3.1.1
+    dev: false
+
+  /dom7/4.0.4:
+    resolution: {integrity: sha512-DSSgBzQ4rJWQp1u6o+3FVwMNnT5bzQbMb+o31TjYYeRi05uAcpF8koxdfzeoe5ElzPmua7W7N28YJhF7iEKqIw==}
+    dependencies:
+      ssr-window: 4.0.2
     dev: false
 
   /emoji-regex/9.2.2:
@@ -2526,6 +2553,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
+  /ssr-window/4.0.2:
+    resolution: {integrity: sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ==}
+    dev: false
+
   /string.prototype.matchall/4.0.8:
     resolution: {integrity: sha512-6zOCOcJ+RJAQshcTvXPHoxoQGONa3e/Lqx90wUA+wEzX78sg5Bo+1tQo4N0pohS0erG9qtCqJDjNCQBjeWVxyg==}
     dependencies:
@@ -2610,6 +2641,15 @@ packages:
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+    dev: false
+
+  /swiper/8.4.5:
+    resolution: {integrity: sha512-zveyEFBBv4q1sVkbJHnuH4xCtarKieavJ4SxP0QEHvdpPLJRuD7j/Xg38IVVLbp7Db6qrPsLUePvxohYx39Agw==}
+    engines: {node: '>= 4.7.0'}
+    requiresBuild: true
+    dependencies:
+      dom7: 4.0.4
+      ssr-window: 4.0.2
     dev: false
 
   /synckit/0.8.4:
