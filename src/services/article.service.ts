@@ -7,5 +7,5 @@ export const getArticles = async (auth: IAuthContext): Promise<Article[]> => {
 };
 
 export const getArticleBySlug = async (auth: IAuthContext, slug: string): Promise<Article> => {
-  return get(`?filters\[slug\][$eq]=${slug}`, ApiName.ARTICLES, auth);
+  return get(`?populate=*&filters\[slug\][$eq]=${slug}`, ApiName.ARTICLES, auth);
 };

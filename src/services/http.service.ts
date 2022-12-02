@@ -46,7 +46,8 @@ const fetcher = async (
   apiName: ApiName,
   authContext: IAuthContext
 ) => {
-  const headers = buildHeader(option.headers || {}, authContext);
+  const isStrapi = apiName === ApiName.ARTICLES;
+  const headers = buildHeader(option.headers || {}, authContext, isStrapi);
   const apiEndpoint = buildEndpoint(endpoint, apiName);
   const res = await fetch(apiEndpoint, {
     ...option,
@@ -67,15 +68,21 @@ const buildEndpoint = (endpoint: string, apiName: ApiName) => {
 
 const buildHeader = (
   headers: { [k: string]: string },
-  authContext: IAuthContext
+  authContext: IAuthContext,
+  isStrapi?: boolean
 ) => {
   const authHeader: any = {};
+  if (isStrapi) {
+      authHeader["Authorization"] = `Bearer ${environment.token.articles}`;
+  } else {
+    if (authContext.accessToken) {
+      authHeader["Authorization"] = `Bearer ${authContext.accessToken}`;
+    }
+  }
   if (authContext.idToken) {
     authHeader["X-Id-Token"] = authContext.idToken;
   }
-  if (authContext.accessToken) {
-    authHeader["Authorization"] = `Bearer ${authContext.accessToken}`;
-  }
+
   if (Object.keys(authHeader).length > 0) {
     return {
       ...headers,

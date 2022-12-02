@@ -2,10 +2,12 @@ import { styled, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { StretchedBox } from "../../components/stretched-box.component";
+import { environment } from "../../environments/environment";
 import { useAuth } from "../../hooks/useAuth.hook";
 import { getArticleBySlug } from "../../services/article.service";
+import { Article } from "../../types/article.type";
 
-const FooSlug = () => {
+const ArticleSlug = () => {
   const Root = styled("div")(({ theme }) => ({
     padding: theme.spacing(4, 2),
     width: "100%",
@@ -37,36 +39,34 @@ const FooSlug = () => {
   const { slug } = router.query;
   const auth = useAuth();
 
-  const [article, setArticle] = useState({});
+  const [article, setArticle] = useState<Article>();
   useEffect(() => {
-    getArticleBySlug(auth, slug as string)
-         .then((res) => setArticle(res))
-         .catch((err) => console.log(err));
-  }, [])
-
-  console.log(article)
+    if (slug) {
+      getArticleBySlug(auth, slug as string)
+        .then((res: any) => {
+          setArticle(res.data[0]);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [slug]);
 
   return (
     <Root>
       <StretchedBox>
         <Header>
-          <Typography variant="h3">Lottie by Airbnb</Typography>
+          <Typography variant="h3">{article?.attributes.title}</Typography>
           <Typography variant="body1">
-            Embed animations on your sites has never been easier. Thanks Airbnb
-            for creating Lottie! And ng-lottie to manage it by Angular.
+            {article?.attributes.description}
           </Typography>
         </Header>
         <Thumbnail>
-          <Image src="https://media-exp1.licdn.com/dms/image/C4D03AQGf5S8l8DZECQ/profile-displayphoto-shrink_800_800/0/1632682851519?e=2147483647&v=beta&t=n9aSfbdAkYywrMJvZjUqgsj8rCZxzS6s_AddqZasF3M" />
+          <Image src={`${environment.api.articlesRoot}${article?.attributes.thumbnail.data.attributes.url}`}
+ />
         </Thumbnail>
-        <Content>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus harum recusandae incidunt dolores iusto consequatur, maxime explicabo nemo, natus illo error? Labore enim, exercitationem dolorum possimus atque harum. Saepe, commodi.
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo eligendi rem pariatur omnis, ab perferendis similique ipsum dolores maxime culpa tempora, quisquam officia voluptatum, sapiente consectetur. Veritatis consequatur autem suscipit?
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam dolores ratione molestiae obcaecati commodi accusamus laborum quibusdam provident, praesentium atque omnis iste esse nobis, quisquam quidem eveniet. Accusamus, consequuntur cumque!
-        </Content>
+        <Content dangerouslySetInnerHTML={{ __html: article?.attributes.content || ''}} />
       </StretchedBox>
     </Root>
   );
 };
 
-export default FooSlug;
+export default ArticleSlug;
