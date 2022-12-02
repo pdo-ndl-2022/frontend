@@ -4,7 +4,7 @@ export const environment: Environment = {
   isLocal: true,
   api: {
     quiz: "http://localhost:3001/quiz",
-    articles: "http://localhost:3002/articles",
+    articles: "http://localhost:1337/api/articles",
   },
   auth: {
     domain: "dev-cmegn43bvk67a63b.eu.auth0.com",

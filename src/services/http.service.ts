@@ -16,28 +16,28 @@ export const get = async (
   apiName: ApiName,
   authContext: IAuthContext
 ) => {
-  fetcher(endpoint, { method: "GET" }, apiName, authContext);
+  return fetcher(endpoint, { method: "GET" }, apiName, authContext);
 };
 export const post = async (
   endpoint: string,
   apiName: ApiName,
   authContext: IAuthContext
 ) => {
-  fetcher(endpoint, { method: "POST" }, apiName, authContext);
+  return fetcher(endpoint, { method: "POST" }, apiName, authContext);
 };
 export const put = async (
   endpoint: string,
   apiName: ApiName,
   authContext: IAuthContext
 ) => {
-  fetcher(endpoint, { method: "PUT" }, apiName, authContext);
+  return fetcher(endpoint, { method: "PUT" }, apiName, authContext);
 };
 export const remove = async (
   endpoint: string,
   apiName: ApiName,
   authContext: IAuthContext
 ) => {
-  fetcher(endpoint, { method: "DELETE" }, apiName, authContext);
+  return fetcher(endpoint, { method: "DELETE" }, apiName, authContext);
 };
 
 const fetcher = async (
@@ -59,9 +59,9 @@ const buildEndpoint = (endpoint: string, apiName: ApiName) => {
   const apiConfig = environment.api;
   switch (apiName) {
     case ApiName.QUIZ:
-      return `${apiConfig.quiz}/quiz`;
+      return `${apiConfig.quiz}${endpoint}`;
     case ApiName.ARTICLES:
-      return `${apiConfig.articles}/articles`;
+      return `${apiConfig.articles}${endpoint}`;
   }
 };
 

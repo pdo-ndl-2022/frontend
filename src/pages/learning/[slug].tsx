@@ -1,6 +1,9 @@
 import { styled, Typography } from "@mui/material";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { StretchedBox } from "../../components/stretched-box.component";
+import { useAuth } from "../../hooks/useAuth.hook";
+import { getArticleBySlug } from "../../services/article.service";
 
 const FooSlug = () => {
   const Root = styled("div")(({ theme }) => ({
@@ -32,7 +35,17 @@ const FooSlug = () => {
 
   const router = useRouter();
   const { slug } = router.query;
-  
+  const auth = useAuth();
+
+  const [article, setArticle] = useState({});
+  useEffect(() => {
+    getArticleBySlug(auth, slug as string)
+         .then((res) => setArticle(res))
+         .catch((err) => console.log(err));
+  }, [])
+
+  console.log(article)
+
   return (
     <Root>
       <StretchedBox>
