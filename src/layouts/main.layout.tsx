@@ -1,6 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { styled } from "@mui/system";
 import { PropsWithChildren } from "react";
+import { CookiesBar } from "../components/cookiesBar/cookieBar.component";
 import { Footer } from "../components/footer.component";
 import { Header } from "../components/header.component";
 import { LoginLayout } from "./login.layout";
@@ -20,6 +21,7 @@ export const MainLayout = ({ children }: PropsWithChildren<{}>) => {
       <Header />
       <StyledMain>{children}</StyledMain>
       <Footer />
+      <CookiesBar />
     </>
   );
 };
