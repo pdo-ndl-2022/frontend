@@ -16,28 +16,28 @@ export const get = async (
   apiName: ApiName,
   authContext: IAuthContext
 ) => {
-  fetcher(endpoint, { method: "GET" }, apiName, authContext);
+  return fetcher(endpoint, { method: "GET" }, apiName, authContext);
 };
 export const post = async (
   endpoint: string,
   apiName: ApiName,
   authContext: IAuthContext
 ) => {
-  fetcher(endpoint, { method: "POST" }, apiName, authContext);
+  return fetcher(endpoint, { method: "POST" }, apiName, authContext);
 };
 export const put = async (
   endpoint: string,
   apiName: ApiName,
   authContext: IAuthContext
 ) => {
-  fetcher(endpoint, { method: "PUT" }, apiName, authContext);
+  return fetcher(endpoint, { method: "PUT" }, apiName, authContext);
 };
 export const remove = async (
   endpoint: string,
   apiName: ApiName,
   authContext: IAuthContext
 ) => {
-  fetcher(endpoint, { method: "DELETE" }, apiName, authContext);
+  return fetcher(endpoint, { method: "DELETE" }, apiName, authContext);
 };
 
 const fetcher = async (
@@ -46,7 +46,8 @@ const fetcher = async (
   apiName: ApiName,
   authContext: IAuthContext
 ) => {
-  const headers = buildHeader(option.headers || {}, authContext);
+  const isStrapi = apiName === ApiName.ARTICLES;
+  const headers = buildHeader(option.headers || {}, authContext, isStrapi);
   const apiEndpoint = buildEndpoint(endpoint, apiName);
   const res = await fetch(apiEndpoint, {
     ...option,
@@ -59,23 +60,29 @@ const buildEndpoint = (endpoint: string, apiName: ApiName) => {
   const apiConfig = environment.api;
   switch (apiName) {
     case ApiName.QUIZ:
-      return `${apiConfig.quiz}/quiz`;
+      return `${apiConfig.quiz}${endpoint}`;
     case ApiName.ARTICLES:
-      return `${apiConfig.articles}/articles`;
+      return `${apiConfig.articles}${endpoint}`;
   }
 };
 
 const buildHeader = (
   headers: { [k: string]: string },
-  authContext: IAuthContext
+  authContext: IAuthContext,
+  isStrapi?: boolean
 ) => {
   const authHeader: any = {};
+  if (isStrapi) {
+      authHeader["Authorization"] = `Bearer ${environment.token.articles}`;
+  } else {
+    if (authContext.accessToken) {
+      authHeader["Authorization"] = `Bearer ${authContext.accessToken}`;
+    }
+  }
   if (authContext.idToken) {
     authHeader["X-Id-Token"] = authContext.idToken;
   }
-  if (authContext.accessToken) {
-    authHeader["Authorization"] = `Bearer ${authContext.accessToken}`;
-  }
+
   if (Object.keys(authHeader).length > 0) {
     return {
       ...headers,
