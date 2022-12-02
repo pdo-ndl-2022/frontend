@@ -25,9 +25,6 @@ export default function Home() {
       <PageSection>
         <SidoSwiper />
       </PageSection>
-      <PageSection>
-        <ElementGroupPreview />
-      </PageSection>
     </PageLayout>
   );
 }

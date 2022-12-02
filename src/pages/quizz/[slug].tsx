@@ -1,8 +1,9 @@
 import { Button, Card, styled, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StretchedBox } from "../../components/stretched-box.component";
-import { Qcm } from "../../types/qcm.entity";
+import { useAuth } from "../../hooks/useAuth.hook";
+import { getQuestions } from "../../services/quiz.service";
 import { Question } from "../../types/question.entity";
 
 const QuizzSlug = () => {
@@ -11,17 +12,22 @@ const QuizzSlug = () => {
     width: "100%",
   }));
 
-  // const auth = useAuth();
-  // const handleClick = () => {
-  //   getQuiz(auth)
-  //     .then((res) => console.log(res))
-  //     .catch((err) => console.log(err));
-  // };
-
   const router = useRouter();
   const { slug } = router.query;
 
-  const qcm = new Qcm("some_id", "Quizz 1");
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const auth = useAuth();
+
+  useEffect(() => {
+    if (auth.accessToken && auth.idToken) {
+      fetch();
+    }
+  }, [auth]);
+
+  const fetch = async () => {
+    const res = await getQuestions(auth, slug as string);
+    setQuestions(res as unknown as Question[]);
+  };
 
   /* type QuestionProps = {
     id?: string;
@@ -34,38 +40,38 @@ const QuizzSlug = () => {
     nb_answers: number;
   } */
 
-  const questions = [
-    Question.create({
-      id: "1",
-      label: "Question 1",
-      category: "cat1",
-      options: [
-        { label: "A 1", id: 1 },
-        { label: "A 2", id: 2 },
-        { label: "A 3", id: 3 },
-        { label: "A 4", id: 4 },
-      ],
-      answers: [1],
-      docs: [],
-      avg_score: 0,
-      nb_answers: 0,
-    }),
-    Question.create({
-      id: "2",
-      label: "Question 2",
-      category: "cat1",
-      options: [
-        { label: "B 1", id: 1 },
-        { label: "B 2", id: 2 },
-        { label: "B 3", id: 3 },
-        { label: "B 4", id: 4 },
-      ],
-      answers: [1],
-      docs: [],
-      avg_score: 0,
-      nb_answers: 0,
-    }),
-  ];
+  //   const questions = [
+  //     Question.create({
+  //       id: "1",
+  //       label: "Question 1",
+  //       category: "cat1",
+  //       options: [
+  //         { label: "A 1", id: 1 },
+  //         { label: "A 2", id: 2 },
+  //         { label: "A 3", id: 3 },
+  //         { label: "A 4", id: 4 },
+  //       ],
+  //       answers: [1],
+  //       docs: [],
+  //       avg_score: 0,
+  //       nb_answers: 0,
+  //   }),
+  //   Question.create({
+  //     id: "2",
+  //     label: "Question 2",
+  //     category: "cat1",
+  //     options: [
+  //       { label: "B 1", id: 1 },
+  //       { label: "B 2", id: 2 },
+  //       { label: "B 3", id: 3 },
+  //       { label: "B 4", id: 4 },
+  //     ],
+  //     answers: [1],
+  //     docs: [],
+  //     avg_score: 0,
+  //     nb_answers: 0,
+  // }),
+  //   ];
 
   type Answer = {
     questionId: string;
@@ -86,9 +92,9 @@ const QuizzSlug = () => {
             After awnsering a question, the user can see the correct answer.
             After awnsering a question, user can click Next to go to the next question.
         */}
-        <Typography variant="h2" style={{ textAlign: "center" }}>
-          {qcm.title}
-        </Typography>
+        {/* <Typography variant="h2" style={
+          {textAlign: "center"}
+        }>{qcm.title}</Typography> */}
         {!isFinished && questions[currentQuestion] && (
           <Typography variant="h3">
             {questions[currentQuestion].label}

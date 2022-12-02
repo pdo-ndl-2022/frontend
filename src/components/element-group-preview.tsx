@@ -1,4 +1,5 @@
 import { Box, Button, Paper, Stack, styled, Typography } from "@mui/material";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth.hook";
 import { getQcms } from "../services/quiz.service";
@@ -7,16 +8,16 @@ import { Qcm } from "../types/quiz.types";
 const Root = styled("header")(({ theme }) => ({
   display: "grid",
   margin: "0 auto",
-  maxWidth: "1200px",
+  maxWidth: "1000px",
   gap: theme.spacing(2),
-  gridTemplateColumns: "repeat(9, 1fr)",
-  gridTemplateRows: "repeat(2, 120px)",
+  gridTemplateColumns: "repeat(6, 1fr)",
+  gridTemplateRows: "repeat(2, 180px)",
   [theme.breakpoints.down("md")]: {
-    gridTemplateColumns: "repeat(7, 1fr)",
+    gridTemplateColumns: "repeat(4, 1fr)",
   },
   [theme.breakpoints.down("sm")]: {
     gridTemplateColumns: "repeat(2, 1fr)",
-    gridTemplateRows: "repeat(3, 120px)",
+    gridTemplateRows: "repeat(3, 180px)",
   },
 }));
 
@@ -43,6 +44,8 @@ const Element = (qcm: Qcm) => {
       }}
     >
       <Box
+        component={Link}
+        href={`/quizz/${qcm.category}`}
         sx={{
           borderRadius: 1,
           overflow: "hidden",
@@ -51,10 +54,14 @@ const Element = (qcm: Qcm) => {
         <StyledImg src="https://cataas.com/cat" />
       </Box>
       <Box
+        component={Link}
+        href={`/quizz/${qcm.category}`}
         sx={{
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "flex-end",
+          textDecoration: "none",
+          color: (theme) => theme.palette.text.primary,
         }}
       >
         <Typography
@@ -71,13 +78,13 @@ const Element = (qcm: Qcm) => {
   );
 };
 
-const Card = styled(Paper)(({ theme }) => ({
-  gridColumn: "span 3",
-  gridRow: "span 2",
-  [theme.breakpoints.down("sm")]: {
-    gridColumn: "span 2",
-  },
-}));
+// const Card = styled(Paper)(({ theme }) => ({
+//   gridColumn: "span 3",
+//   gridRow: "span 2",
+//   [theme.breakpoints.down("sm")]: {
+//     gridColumn: "span 2",
+//   },
+// }));
 
 export const ElementGroupPreview = () => {
   const [qcms, setQcms] = useState<Qcm[]>([]);
@@ -96,7 +103,7 @@ export const ElementGroupPreview = () => {
 
   return (
     <Root>
-      <Card
+      {/* <Card
         variant="outlined"
         sx={{
           display: "flex",
@@ -110,7 +117,7 @@ export const ElementGroupPreview = () => {
         <Button sx={{}} variant="outlined">
           More
         </Button>
-      </Card>
+      </Card> */}
       {qcms &&
         qcms.map((qcm, i) => (
           <Element
