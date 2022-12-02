@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FormFields } from "./addField.component";
 import { Final } from "./final.component";
 
-export const CookiesBar = () => {
+export const CookiesBar = (): JSX.Element => {
   const [isAccepted, setIsAccepted] = useState(false)
   const [quit0, setQuit0] = useState(false)
   const [step, setStep] = useState("init")
@@ -44,7 +44,7 @@ export const CookiesBar = () => {
       </div>
     case "step1":
       return <>
-      <img src="cheveux2.png" alt="troll faux cheveux" 
+      <img src="cheveux2.png" alt="troll faux cheveux"
       style={{
         zIndex:200,
         position:"fixed",
@@ -86,5 +86,5 @@ export const CookiesBar = () => {
       <></>
   }
 
-
+  return <></>
 };

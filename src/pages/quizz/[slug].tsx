@@ -20,10 +20,9 @@ const QuizzSlug = () => {
 
   const router = useRouter();
   const { slug } = router.query;
-  
-  const qcm = new Qcm();
-  qcm.title = "Quizz 1";
-  
+
+  const qcm = new Qcm("some_id", "Quizz 1");
+
   /* type QuestionProps = {
     id?: string;
     label: string;
@@ -91,7 +90,7 @@ const QuizzSlug = () => {
           {textAlign: "center"}
         }>{qcm.title}</Typography>
         {!isFinished && questions[currentQuestion] && (<Typography variant="h3">{questions[currentQuestion].label}</Typography>)}
-        
+
         {/* grid 2x2 questions */}
         <div style={
           {
@@ -123,7 +122,7 @@ const QuizzSlug = () => {
         ))}
         </div>
         {anwsed && questions[currentQuestion] && (
-          <Typography variant="p">Correct answer: {questions[currentQuestion].answers ?? questions[currentQuestion].answers.join(', ')}</Typography>
+          <Typography>Correct answer: {questions[currentQuestion].answers ?? questions[currentQuestion].answers.join(', ')}</Typography>
         )}
           {anwsed && !isFinished && (
         <Button onClick={() => {
