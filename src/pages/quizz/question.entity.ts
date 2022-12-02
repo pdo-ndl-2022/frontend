@@ -2,7 +2,7 @@ export type Option = {
     id: number;
     label: string;
   };
-  
+
   export type QuestionProps = {
     id?: string;
     label: string;
@@ -13,7 +13,7 @@ export type Option = {
     avg_score: number;
     nb_answers: number;
   };
-  
+
   export class Question {
     public constructor(
       public readonly id: string,
@@ -29,10 +29,10 @@ export type Option = {
       public avg_score: number,
       public nb_answers: number
     ) {}
-  
+
     static create(props: QuestionProps): Question {
       const question = new Question(
-        props.id,
+        props.id ?? "",
         props.label,
         props.category,
         props.options,
@@ -44,4 +44,3 @@ export type Option = {
       return question;
     }
   }
-  

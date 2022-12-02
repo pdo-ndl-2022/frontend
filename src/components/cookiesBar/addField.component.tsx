@@ -3,13 +3,18 @@ import { useForm } from "react-hook-form"
 // import { styled } from "styled-components"
 
 
-export const FormFields = ({ setStep }) => {
+export const FormFields = ({ setStep }: { setStep: (str: string) => void}) => {
     const [error, setError] = useState("")
     const onclick = () => {
         if (document.getElementById("form3")) {
-            if ((document.getElementById("form0")?.value == "V") &&
+            // @ts-ignore
+          if ((document.getElementById("form0")?.value == "V") &&
+            // @ts-ignore
                 (document.getElementById("form1")?.value == "III") &&
-                (document.getElementById("form2")?.value == "II") &&
+
+            // @ts-ignore
+            (document.getElementById("form2")?.value == "II") &&
+            // @ts-ignore
                 (document.getElementById("form3")?.value == "I")) {
                 setStep("final")
             }
@@ -54,6 +59,6 @@ export const FormFields = ({ setStep }) => {
         <div style={{ display: "flex", justifyContent: "end" }}>
             <p style={{ color: "blue" }}>{error}</p>
         </div>
-        
+
     </div>
 }
