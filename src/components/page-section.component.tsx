@@ -21,12 +21,12 @@ export const PageSection = ({
           },
         },
         pt: {
-          xs: 4,
-          md: 8,
+          xs: 8,
+          md: 16,
         },
         bp: {
-          xs: 4,
-          md: 8,
+          xs: 8,
+          md: 16,
         },
       }}
     >
