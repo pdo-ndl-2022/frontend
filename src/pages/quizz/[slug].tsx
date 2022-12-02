@@ -41,10 +41,10 @@ const QuizzSlug = () => {
       label: "Question 1",
       category: "cat1",
       options: [
-        { label: "Option 1", id: 1 },
-        { label: "Option 2", id: 2 },
-        { label: "Option 3", id: 3 },
-        { label: "Option 4", id: 4 },
+        { label: "A 1", id: 1 },
+        { label: "A 2", id: 2 },
+        { label: "A 3", id: 3 },
+        { label: "A 4", id: 4 },
       ],
       answers: [1],
       docs: [],
@@ -56,10 +56,10 @@ const QuizzSlug = () => {
     label: "Question 2",
     category: "cat1",
     options: [
-      { label: "Option 1", id: 1 },
-      { label: "Option 2", id: 2 },
-      { label: "Option 3", id: 3 },
-      { label: "Option 4", id: 4 },
+      { label: "B 1", id: 1 },
+      { label: "B 2", id: 2 },
+      { label: "B 3", id: 3 },
+      { label: "B 4", id: 4 },
     ],
     answers: [1],
     docs: [],
@@ -104,7 +104,7 @@ const QuizzSlug = () => {
           }
         }>
 
-        {!isFinished && questions[currentQuestion] && questions[currentQuestion].options.map((option) => (
+        {!isFinished && !anwsed && questions[currentQuestion] && questions[currentQuestion].options.map((option) => (
           <Card
             style={{
               padding: "1rem",
@@ -112,9 +112,8 @@ const QuizzSlug = () => {
               backgroundColor: anwsed && option.id === questions[currentQuestion].answers[0] ? "green" : "white",
             }}
             key={option.id} onClick={() => {
-            setAnswers([...answers, { questionId: questions[currentQuestion].id, optionId: option.id }]);
-            setCurrentQuestion(currentQuestion + 1);
             setAnwsed(true);
+            setAnswers([...answers, { questionId: questions[currentQuestion].id, optionId: option.id }]);
             if (currentQuestion === questions.length - 1) {
               setIsFinished(true);
             }
@@ -127,7 +126,10 @@ const QuizzSlug = () => {
           <Typography variant="p">Correct answer: {questions[currentQuestion].answers ?? questions[currentQuestion].answers.join(', ')}</Typography>
         )}
           {anwsed && !isFinished && (
-        <Button onClick={() => {setCurrentQuestion(currentQuestion + 1);setAnwsed(false)}}>Suivant</Button>
+        <Button onClick={() => {
+          setAnwsed(false);
+          setCurrentQuestion(currentQuestion + 1)
+        }}>Suivant</Button>
         )}
         {isFinished && (
           <Typography variant="h4">Quiz terminé</Typography>
