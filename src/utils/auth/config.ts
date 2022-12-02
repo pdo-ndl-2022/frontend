@@ -6,5 +6,6 @@ export function getConfig() {
   return {
     domain: authConfig.domain,
     clientId: authConfig.clientId,
+    callback: authConfig.callback,
   };
 }

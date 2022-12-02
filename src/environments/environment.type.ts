@@ -11,5 +11,6 @@ export interface Environment {
   auth: {
     domain: string;
     clientId: string;
+    callback: string;
   };
 }

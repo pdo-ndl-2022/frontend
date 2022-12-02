@@ -46,16 +46,14 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const onRedirectCallback = (appState: any) => {
     router.push(
-      appState && appState.returnTo
-        ? appState.returnTo
-        : "http://localhost:3000/auth/callback"
+      appState && appState.returnTo ? appState.returnTo : config.callback
     );
   };
 
   const providerConfig: Auth0ProviderOptions = {
     domain: config.domain,
     clientId: config.clientId,
-    redirectUri: "http://localhost:3000/auth/callback",
+    redirectUri: config.callback,
     onRedirectCallback,
   };
 
