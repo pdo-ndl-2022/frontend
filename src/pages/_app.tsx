@@ -12,7 +12,7 @@ import {
   ThemeOptions,
   ThemeProvider,
 } from "@mui/material/styles";
-import { CssBaseline } from "@mui/material";
+import { Box, Button, CssBaseline } from "@mui/material";
 import { PaletteMode } from "@mui/material";
 import {
   Auth0Provider,
@@ -32,6 +32,7 @@ import { useRouter } from "next/router";
 import { MainLayout } from "../layouts/main.layout";
 import { LoadingLayout } from "../layouts/loading.layout";
 import { AuthProvider } from "../contexts/Auth.context";
+import { LoginLayout } from "../layouts/login.layout";
 
 const ColorModeContext = createContext({
   mode: "light",
@@ -39,7 +40,7 @@ const ColorModeContext = createContext({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  const { isLoading } = useAuth0();
+  const { isLoading, isAuthenticated, user } = useAuth0();
   const config = getConfig();
   const router = useRouter();
 
