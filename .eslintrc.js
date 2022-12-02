@@ -22,7 +22,6 @@ module.exports = {
   extends: [
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
-    "airbnb-typescript",
     'plugin:prettier/recommended',
   ],
   settings: {
