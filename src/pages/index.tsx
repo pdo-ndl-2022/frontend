@@ -8,7 +8,6 @@ import { SearchBar } from "../components/search-bar.component";
 import { SidoSwiper } from "../components/slider.component";
 import { PageLayout } from "../layouts/page.layout";
 import { Button } from "@mui/material";
-import { getQuiz } from "../services/quiz.service";
 import { useAuth } from "../hooks/useAuth.hook";
 
 export default function Home() {

@@ -11,7 +11,7 @@ const StyledMain = styled("main")({
 });
 
 export const MainLayout = ({ children }: PropsWithChildren<{}>) => {
-  const { isLoading, isAuthenticated, user } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   if (!isAuthenticated) {
     return <LoginLayout />;

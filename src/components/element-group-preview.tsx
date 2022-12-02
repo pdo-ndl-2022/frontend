@@ -1,13 +1,8 @@
-import {
-  Box,
-  Button,
-  Paper,
-  Stack,
-  styled,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Button, Paper, Stack, styled, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth.hook";
+import { getQcms } from "../services/quiz.service";
+import { Qcm } from "../types/quiz.types";
 
 const Root = styled("header")(({ theme }) => ({
   display: "grid",
@@ -25,13 +20,6 @@ const Root = styled("header")(({ theme }) => ({
   },
 }));
 
-// const Element = styled(Paper)(({ theme }) => ({
-//   gridColumn: "span 2",
-//   [theme.breakpoints.down("sm")]: {
-//     gridColumn: "span 1",
-//   },
-// }));
-
 const StyledElement = styled(Stack)(({ theme }) => ({
   gridColumn: "span 2",
   [theme.breakpoints.down("sm")]: {
@@ -45,7 +33,7 @@ const StyledImg = styled("img")(({ theme }) => ({
   height: "100%",
 }));
 
-const Element = () => {
+const Element = (qcm: Qcm) => {
   return (
     <StyledElement
       direction="column"
@@ -76,7 +64,7 @@ const Element = () => {
             padding: (theme) => theme.spacing(0.5),
           }}
         >
-          Quizz
+          {qcm.title} ({qcm.category})
         </Typography>
       </Box>
     </StyledElement>
@@ -92,23 +80,19 @@ const Card = styled(Paper)(({ theme }) => ({
 }));
 
 export const ElementGroupPreview = () => {
-  const sm = useMediaQuery("(max-width:600px)");
-  const md = useMediaQuery("(max-width:900px)");
-  const gtMd = useMediaQuery("(min-width:901px)");
-
-  const [count, setCount] = useState(6);
+  const [qcms, setQcms] = useState<Qcm[]>([]);
+  const auth = useAuth();
 
   useEffect(() => {
-    if (gtMd) {
-      setCount(6);
+    if (auth.accessToken && auth.idToken) {
+      fetch();
     }
-    if (md) {
-      setCount(4);
-    }
-    if (sm) {
-      setCount(2);
-    }
-  }, [sm, md, gtMd]);
+  }, [auth]);
+
+  const fetch = async () => {
+    const res = await getQcms(auth);
+    setQcms(res as unknown as Qcm[]);
+  };
 
   return (
     <Root>
@@ -127,10 +111,14 @@ export const ElementGroupPreview = () => {
           More
         </Button>
       </Card>
-      {Array(count)
-        .fill(0)
-        .map((_, i) => (
-          <Element key={i}></Element>
+      {qcms &&
+        qcms.map((qcm, i) => (
+          <Element
+            id={qcm.id}
+            title={qcm.title}
+            category={qcm.category}
+            key={i}
+          ></Element>
         ))}
     </Root>
   );

@@ -21,9 +21,10 @@ export const get = async (
 export const post = async (
   endpoint: string,
   apiName: ApiName,
-  authContext: IAuthContext
+  authContext: IAuthContext,
+  body: any
 ) => {
-  return fetcher(endpoint, { method: "POST" }, apiName, authContext);
+  return fetcher(endpoint, { method: "POST" }, apiName, authContext, body);
 };
 export const put = async (
   endpoint: string,
@@ -44,7 +45,8 @@ const fetcher = async (
   endpoint: string,
   option: FetchOption,
   apiName: ApiName,
-  authContext: IAuthContext
+  authContext: IAuthContext,
+  body?: any
 ) => {
   const isStrapi = apiName === ApiName.ARTICLES;
   const headers = buildHeader(option.headers || {}, authContext, isStrapi);
@@ -52,6 +54,7 @@ const fetcher = async (
   const res = await fetch(apiEndpoint, {
     ...option,
     headers,
+    body,
   });
   return res.json();
 };
@@ -60,7 +63,7 @@ const buildEndpoint = (endpoint: string, apiName: ApiName) => {
   const apiConfig = environment.api;
   switch (apiName) {
     case ApiName.QUIZ:
-      return `${apiConfig.quiz}${endpoint}`;
+      return `${apiConfig.quiz}/${endpoint}`;
     case ApiName.ARTICLES:
       return `${apiConfig.articles}${endpoint}`;
   }
@@ -73,7 +76,7 @@ const buildHeader = (
 ) => {
   const authHeader: any = {};
   if (isStrapi) {
-      authHeader["Authorization"] = `Bearer ${environment.token.articles}`;
+    authHeader["Authorization"] = `Bearer ${environment.token.articles}`;
   } else {
     if (authContext.accessToken) {
       authHeader["Authorization"] = `Bearer ${authContext.accessToken}`;
