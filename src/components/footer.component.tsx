@@ -13,8 +13,20 @@ const StyledFooter = styled("footer")(({ theme }) => ({
 
 export const Footer = () => {
   return (
-    <StyledFooter>
-      <Typography variant="body1">Footer</Typography>
+    <StyledFooter style={
+      {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+      }
+    }>
+      <Typography>
+        Ce site a été réalisé par les étudiants de Polytech Montpellier en 5ème année de cycle ingénieur DevOps.
+      </Typography>
+      <Typography>
+      Message adressé aux sponsors : Nous organisons une conférence sur le thème du Cloud et du Devops en mai, consultez le site de 
+        <a href="https://polycloud.fr/"> PolyCloud</a> pour plus d'informations. 
+      </Typography>
     </StyledFooter>
   );
 };
