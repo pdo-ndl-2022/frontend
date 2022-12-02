@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 // import { styled } from "styled-components"
 
 
-export const FormFields = ({ setStep }) => {
+export const FormFields = ({ setStep }: { setStep: any}) => {
     const [error, setError] = useState("")
     const onclick = () => {
         if (document.getElementById("form3")) {
