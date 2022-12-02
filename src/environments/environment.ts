@@ -22,7 +22,7 @@ import { Environment } from "./environment.type";
 export const environment: Environment = {
   isLocal: true,
   api: {
-    quiz: "http://localhost:3001/quiz",
+    quiz: "http://localhost:5000/quiz",
     articles: "http://localhost:1337/api/articles",
     articlesRoot: "http://localhost:1337",
   },

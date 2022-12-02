@@ -4,10 +4,11 @@ import {
   Box,
   Button,
   IconButton,
-  Link,
+  Link as MuiLink,
   Menu,
   MenuItem,
 } from "@mui/material";
+import Link from "next/link";
 import { styled } from "@mui/material";
 import { Children, PropsWithChildren, useEffect, useState } from "react";
 import { Logo } from "./logo.component";
@@ -49,9 +50,9 @@ export const Header = () => {
     <StyledHeader>
       <Nav>
         <Logo />
-        <Link href="/learning" underline="none" color="primary">
+        <MuiLink component={Link} href="/learning" underline="none" color="primary">
           Blog
-        </Link>
+        </MuiLink>
       </Nav>
       <Box>
         {!isAuthenticated && (
