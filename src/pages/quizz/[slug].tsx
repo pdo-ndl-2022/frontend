@@ -87,10 +87,31 @@ const QuizzSlug = () => {
             After awnsering a question, the user can see the correct answer.
             After awnsering a question, user can click Next to go to the next question.
         */}
-        <Typography variant="h1">{qcm.title}</Typography>
-        {!isFinished && questions[currentQuestion] && (<Typography variant="h2">{questions[currentQuestion].label}</Typography>)}
+        <Typography variant="h2" style={
+          {textAlign: "center"}
+        }>{qcm.title}</Typography>
+        {!isFinished && questions[currentQuestion] && (<Typography variant="h3">{questions[currentQuestion].label}</Typography>)}
+        
+        {/* grid 2x2 questions */}
+        <div style={
+          {
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gridTemplateRows: "1fr 1fr",
+            gap: "1rem",
+            marginTop: "1rem",
+            textAlign: "center",
+          }
+        }>
+
         {!isFinished && questions[currentQuestion] && questions[currentQuestion].options.map((option) => (
-          <Card key={option.id} onClick={() => {
+          <Card
+            style={{
+              padding: "1rem",
+              cursor: "pointer",
+              backgroundColor: anwsed && option.id === questions[currentQuestion].answers[0] ? "green" : "white",
+            }}
+            key={option.id} onClick={() => {
             setAnswers([...answers, { questionId: questions[currentQuestion].id, optionId: option.id }]);
             setCurrentQuestion(currentQuestion + 1);
             setAnwsed(true);
@@ -101,6 +122,7 @@ const QuizzSlug = () => {
             {option.label}
           </Card>
         ))}
+        </div>
         {anwsed && questions[currentQuestion] && (
           <Typography variant="p">Correct answer: {questions[currentQuestion].answers ?? questions[currentQuestion].answers.join(', ')}</Typography>
         )}
@@ -108,7 +130,7 @@ const QuizzSlug = () => {
         <Button onClick={() => {setCurrentQuestion(currentQuestion + 1);setAnwsed(false)}}>Suivant</Button>
         )}
         {isFinished && (
-          <Typography variant="h3">Quiz terminé</Typography>
+          <Typography variant="h4">Quiz terminé</Typography>
         )}
         </StretchedBox>
     </Root>
