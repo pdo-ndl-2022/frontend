@@ -1,28 +1,12 @@
-import { height } from "@mui/system";
 import { useState } from "react";
-import { keyframes } from "styled-components";
-import { AddFields } from "./addField.component";
-// import ReactDOM from 'react-dom';
-// import { MainLayout } from "../../layouts/main.layout";
+import { FormFields } from "./addField.component";
+import { Final } from "./final.component";
 
 export const CookiesBar = () => {
-  // if (typeof window !== 'undefined') {
-  //   ReactDOM.render(<MainLayout />, document.getElementById("root"));
-  // }
-
-  // const [isAccepted, setIsAccepted] = useState(document.cookie == "cookie=accepted")
   const [isAccepted, setIsAccepted] = useState(false)
   const [quit0, setQuit0] = useState(false)
   const [step, setStep] = useState("init")
 
-  // const goDown = keyframes`
-  // from {
-  //   transform: rotate(0deg);
-  // }
-
-  // to {
-  //   transform: rotate(360deg);
-  // }`;
 
   const accepted = () => {
     document.cookie = "cookie=accepted";
@@ -47,9 +31,7 @@ export const CookiesBar = () => {
         paddingRight: "20%",
         paddingBottom: "2%",
         backgroundColor: "gray",
-        // textTransform: quit0 ? "lowercase" : "none",
         zIndex: 1,
-        // animation: quit0? `${goDown} 2s linear infinite`: ""
       }}>
         <p>Nous n'utilisons aucun cookies que vous pouvez refuser. Seulement des cookies nécessaires </p>
         <p>Mais vous pouvez essayer de les refuser. Bonne chance !</p>
@@ -61,7 +43,17 @@ export const CookiesBar = () => {
         </div>
       </div>
     case "step1":
-      return <div style={{
+      return <>
+      <img src="cheveux2.png" alt="troll faux cheveux" 
+      style={{
+        zIndex:200,
+        position:"fixed",
+        opacity:0.3,
+        top:"5%",
+        right:0,
+        transform: "scaleX(-1)"
+      }}/>
+      <div style={{
         top:"15%",
         left:"10%",
         backgroundColor: "#576905",
@@ -71,6 +63,7 @@ export const CookiesBar = () => {
         position: "fixed",
         paddingLeft: "3%",
         paddingRight: "3%",
+        overflow: "scroll",
       }}>
         <p style={{color: "#FF2BEA"}}>Afin de refuser les cookies, sélectionner les cookies que vous ne souaitez pas.</p>
         <p style={{color: "#FF2BEA"}}>Enfin en vrai vous faites ce que vous voulez parce que vous pouvez aussi les accepter.</p>
@@ -82,9 +75,15 @@ export const CookiesBar = () => {
           <li>NUMERO 5 : Déveloper et améliorer nos produits</li>
         </ul>
         <p style={{color: "#FF2BEA"}}> Ajouter les cookies que vous souhaitez de pas garder</p>
-        <p style={{color: "#4C5E02"}}> Les numéros des cookies non voulus sont a inscrire en chiffre romaines</p>
-        <AddFields />
+        <p style={{color: "#4C5E02"}}> Les numéros des cookies non voulus sont a inscrire en chiffre romaines uniquement</p>
+          <FormFields setStep={setStep} />
+        <p style={{color: "#4C5E02"}}> et du plus grand au plus petit </p>
       </div>
+      </>
+    case "final":
+      return <Final setStep={setStep}></Final>
+    default:
+      <></>
   }
 
 
