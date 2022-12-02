@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Avatar, Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
 import { styled } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Children, PropsWithChildren, useEffect, useState } from "react";
 import { Logo } from "./logo.component";
 
 const StyledHeader = styled("header")(({ theme }) => ({
@@ -15,12 +15,9 @@ const StyledHeader = styled("header")(({ theme }) => ({
 
 export const Header = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = !!anchorEl;
-  useEffect(() => {
-    console.log("user", user, isAuthenticated);
-  }, [user]);
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -37,6 +34,7 @@ export const Header = () => {
   return (
     <StyledHeader>
       <Logo />
+
       <Box>
         {!isAuthenticated && (
           <Button onClick={() => loginWithRedirect()}>Login</Button>

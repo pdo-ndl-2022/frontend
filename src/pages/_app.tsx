@@ -31,6 +31,7 @@ import { getConfig } from "../utils/auth/config";
 import { useRouter } from "next/router";
 import { MainLayout } from "../layouts/main.layout";
 import { LoadingLayout } from "../layouts/loading.layout";
+import { AuthProvider } from "../contexts/Auth.context";
 
 const ColorModeContext = createContext({
   mode: "light",
@@ -95,18 +96,20 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <Auth0Provider {...providerConfig}>
-      <ColorModeContext.Provider value={{ mode, ...colorMode }}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <MainLayout>
-                <Component {...pageProps} />
-              </MainLayout>
-            </ThemeProvider>
-          </StyledEngineProvider>
-        </LocalizationProvider>
-      </ColorModeContext.Provider>
+      <AuthProvider>
+        <ColorModeContext.Provider value={{ mode, ...colorMode }}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <StyledEngineProvider injectFirst>
+              <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <MainLayout>
+                  <Component {...pageProps} />
+                </MainLayout>
+              </ThemeProvider>
+            </StyledEngineProvider>
+          </LocalizationProvider>
+        </ColorModeContext.Provider>
+      </AuthProvider>
     </Auth0Provider>
   );
 }
