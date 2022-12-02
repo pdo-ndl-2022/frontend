@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "start:e2e": "next build && next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "dayjs": "^1.11.6",
+    "dlx": "^0.2.1",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
     "lodash": "^4.17.21",
@@ -32,6 +34,7 @@
     "typescript": "4.9.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.28.1",
     "@types/lodash": "^4.14.191"
   }
 }
