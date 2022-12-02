@@ -1,6 +1,10 @@
 import { Box, lighten, Paper, Stack, styled, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { Pagination, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useAuth } from "../hooks/useAuth.hook";
+import { getArticles } from "../services/article.service";
+import { Article } from "../types/article.type";
 
 const Card = styled(Paper)(({ theme }) => ({
   display: "grid",
@@ -22,7 +26,7 @@ const StyledImg = styled("img")(({ theme }) => ({
   height: "100%",
 }));
 
-const SliderCard = () => {
+const SliderCard = ({ article }: { article: Article }) => {
   return (
     <Stack
       direction="column"
@@ -38,7 +42,9 @@ const SliderCard = () => {
           height: "350px",
         }}
       >
-        <StyledImg src="https://cataas.com/cat" />
+        <StyledImg
+          src={article.attributes.thumbnail.data.attributes.url || ""}
+        />
       </Box>
       <Box
         sx={{
@@ -54,7 +60,7 @@ const SliderCard = () => {
             padding: (theme) => theme.spacing(0.5),
           }}
         >
-          Quizz
+          {article?.attributes?.title}
         </Typography>
       </Box>
     </Stack>
@@ -62,6 +68,14 @@ const SliderCard = () => {
 };
 
 export const SidoSwiper = () => {
+  const auth = useAuth();
+  const [articles, setArticles] = useState<Article[]>();
+  useEffect(() => {
+    getArticles(auth)
+      .then((res: any) => setArticles(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <StyledSwiper
       style={{
@@ -83,13 +97,11 @@ export const SidoSwiper = () => {
         },
       }}
     >
-      {Array(10)
-        .fill(0)
-        .map((_, i) => (
-          <SwiperSlide key={i}>
-            <SliderCard />
-          </SwiperSlide>
-        ))}
+      {(articles || []).map((article, i) => (
+        <SwiperSlide key={i}>
+          <SliderCard article={article} />
+        </SwiperSlide>
+      ))}
     </StyledSwiper>
   );
 };
