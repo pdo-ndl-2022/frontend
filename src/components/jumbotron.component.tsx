@@ -1,4 +1,5 @@
 import { Stack, styled, Typography } from "@mui/material";
+import { LeaderBoard } from "./leader-board.component";
 import { StretchedBox } from "./stretched-box.component";
 
 const Root = styled("div")(({ theme }) => ({
@@ -13,15 +14,24 @@ const Root = styled("div")(({ theme }) => ({
   },
 }));
 
+const StyledImg = styled("img")(({ theme }) => ({
+  objectFit: "cover",
+  width: "100%",
+  height: "100%",
+}));
+
 export const Jumbotron = () => {
   return (
     <Root>
-      <StretchedBox>
-        <Typography variant="body2">Element 1</Typography>
+      <StretchedBox
+        sx={{
+          overflow: "hidden",
+          border: (theme) => `solid 4px ${theme.palette.primary.main}`,
+        }}
+      >
+        <StyledImg src="jumbotron_sidaction.jpg" />
       </StretchedBox>
-      <StretchedBox>
-        <Typography variant="body2">Element 2</Typography>
-      </StretchedBox>
+      <LeaderBoard />
     </Root>
   );
 };

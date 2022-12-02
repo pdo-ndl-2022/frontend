@@ -9,3 +9,12 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: #d50000
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: #d50000;
+}

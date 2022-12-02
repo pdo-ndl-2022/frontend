@@ -1,7 +1,17 @@
-import { Box, Paper, styled, Typography } from "@mui/material";
+import {
+  Box,
+  Paper,
+  PaperProps,
+  styled,
+  SxProps,
+  Typography,
+} from "@mui/material";
 import { PropsWithChildren } from "react";
 
-export const StretchedBox = ({ children }: PropsWithChildren) => {
+export const StretchedBox = ({
+  children,
+  ...props
+}: PropsWithChildren<PaperProps>) => {
   return (
     <Paper
       variant="outlined"
@@ -10,6 +20,7 @@ export const StretchedBox = ({ children }: PropsWithChildren) => {
         height: "100%",
         padding: 2,
       }}
+      {...props}
     >
       {children}
     </Paper>
