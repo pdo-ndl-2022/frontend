@@ -14,7 +14,7 @@ export const LoginLayout = () => {
         gap: 5,
       }}
     >
-      <Typography variant="h1">Login do Sido</Typography>
+      <Typography variant="h1">Se connecter à Sido</Typography>
 
       <Button variant="contained" onClick={() => loginWithRedirect()}>
         Log in
