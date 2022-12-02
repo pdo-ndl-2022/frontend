@@ -1,5 +1,8 @@
 export interface Environment {
-  api?: any;
+  api: {
+    quiz: string;
+    articles: string;
+  };
   isLocal: boolean;
   auth: {
     domain: string;
